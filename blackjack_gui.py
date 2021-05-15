@@ -248,5 +248,11 @@ class GameScreen(tk.Tk):
         self.stick_button.pack(side=tk.LEFT)
 
 if __name__ == "__main__":
+    # s = tk.Tk()
+    # game_screen = tk.Canvas(s, bg="white", width=800, height=500)
+    # Card.get_back_file() #独立使用会报错: RuntimeError: Too early to create image; 需要首先创建根元素(tk.Tk()),然后创建其余的小部件
+    # s.mainloop()
+
     gs = GameScreen()
+    # Card.get_back_file() # this is OK.
     gs.mainloop()
