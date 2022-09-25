@@ -2,6 +2,7 @@
 import turtle # Set up turtle graphics
 t = turtle.Pen()
 turtle.bgcolor("black")
+turtle.Turtle().screen.delay(0)
 colors = ["red", "yellow", "blue", "green"]
 # Ask the user's name using turtle's textinput pop-up window
 your_name = turtle.textinput("Enter your name", "What is your name?")
@@ -13,3 +14,4 @@ for x in range(100):
     t.pendown() # Write the user's name, bigger each time
     t.write(your_name, font = ("Arial", int( (x + 4) / 4), "bold") )
     t.left(92) # Turn left, just as in our other spirals
+turtle.textinput("","")
