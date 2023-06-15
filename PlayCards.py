@@ -27,7 +27,7 @@ for i in range(10):
                 )  
     card_list.add(sprite)
 
-button_test = Button(screen, 'test',BLUE,RED,Rect(0,0,100,50))
+button_test = Button(screen, 'test',button_color=BLUE,text_color=RED,rect=Rect(0,0,100,50))
 card_current = Card(screen,
                     'assets_en/back.jpg',
                     (700,100),
@@ -53,7 +53,7 @@ while keep_going:
             for s in card_list:
                 if s.rect.collidepoint(pos):
                     s.choose()
-                    card_current.image = s.image.copy()
+                    card_current.setImage(s.filename)
             if button_test.rect.collidepoint(pos): #点击button_test
                 for s in card_list:
                     if s.selected:

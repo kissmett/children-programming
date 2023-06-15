@@ -1,5 +1,5 @@
 import pygame
-from pygame_components.color import RED,BLACK,BLUE,GREEN
+from .color import RED,BLACK,BLUE,GREEN
 
 class Card(pygame.sprite.Sprite): 
     # 属性image/rect不可少
@@ -7,24 +7,26 @@ class Card(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.screen = screen
         self.filename = imagefile
-        self.pos = pos
+        # self.pos = pos
         self.scale = scale
         self.selected = selected
-        self.image = pygame.image.load(self.filename)
+        self.setImage(self.filename)
+        self.setPos(pos)
+        pass
+    def blitme(self):
+        self.screen.blit(self.image,self.rect)
+        pass
+    def setImage(self,filename):
+        self.image = pygame.image.load(filename)
         self.image = pygame.transform.scale(self.image,
                                             (self.image.get_rect().width*self.scale,
                                              self.image.get_rect().height*self.scale)
                                              )
         self.image0 = self.image.copy()
-        self.rect = self.image.get_rect()
-        self.rect.x = self.pos[0] - self.rect.width/2
-        self.rect.y = self.pos[1] - self.rect.height/2
-        pass
-    def blitme(self):
-        self.screen.blit(self.image,self.rect)
-        pass
+              
     def setPos(self,pos):
         self.pos = pos
+        self.rect = self.image.get_rect() 
         self.rect.x = self.pos[0] - self.rect.width/2
         self.rect.y = self.pos[1] - self.rect.height/2   
         pass
