@@ -2,67 +2,40 @@ import pygame
 import random
 import os
 
-RED = (255,0,0)
-GREEN = (0,255,0)
-BLUE = (0,0,255)
-BLACK = (0,0,0)
+from pygame import Rect
+
+from pygame_components.button import Button
+from pygame_components.card import Card
+from pygame_components.color import RED,BLACK,BLUE,GREEN
+
+
 
 pygame.init()
 screen = pygame.display.set_mode([800,600])
 pygame.display.set_caption("UE")
 timer = pygame.time.Clock()
 
-class Card(pygame.sprite.Sprite): 
-    # 属性image/rect不可少
-    def __init__(self,imagefile,pos,scale,selected=False):
-        pygame.sprite.Sprite.__init__(self)
-        self.filename = imagefile
-        self.pos = pos
-        self.scale = scale
-        self.selected = selected
-        self.image = pygame.image.load(self.filename)
-        self.image = pygame.transform.scale(self.image,
-                                            (self.image.get_rect().width*self.scale,
-                                             self.image.get_rect().height*self.scale)
-                                             )
-        self.image0 = self.image.copy()
-        self.rect = self.image.get_rect()
-        self.rect.x = self.pos[0] - self.rect.width/2
-        self.rect.y = self.pos[1] - self.rect.height/2
-        pass
-    def update(self):
-        # print(self.filename,'.update()')
-        # self.rect.x = self.pos[0] - self.rect.width/2
-        # self.rect.y = self.pos[1] - self.rect.height/2
-        if self.selected:
-            # pygame.draw.rect(self.image,RED,self.rect)
-            # pygame.draw.rect(self.image,RED,(),20)
-            pygame.draw.circle(self.image,RED,
-                               (self.rect.width-10*self.scale,10*self.scale),
-                               10*self.scale) #OK, draw a circle on the image from topright
-            # pygame.draw.circle(screen,RED,
-            #                    (self.rect.x+self.rect.width-10*self.scale,
-            #                     self.rect.y+10*self.scale),
-            #                    10*self.scale) #Not
-        
-        pass
-    def choose(self):
-        if self.selected:
-            self.selected = False
-            self.image = self.image0.copy()
-        else:
-            self.selected = True
-
 imagefile_list = [ f for f in os.listdir('./assets_en') if f.rfind('.jpg')>0 ]
 
-sprite_list = pygame.sprite.Group()
+card_list = pygame.sprite.Group()
 for i in range(10):
-    sprite = Card('assets_en/'+random.choice(imagefile_list),
-                          (random.randint(100,700),random.randint(100,500)),
-                          random.random(),
-                          selected=False
-                          )  
-    sprite_list.add(sprite)
+    sprite = Card(screen,
+                  'assets_en/'+random.choice(imagefile_list),
+                (random.randint(100,700),random.randint(100,500)),
+                random.random(),
+                selected=False
+                )  
+    card_list.add(sprite)
+
+button_test = Button(screen, 'test',BLUE,RED,Rect(0,0,100,50))
+card_current = Card(screen,
+                    'assets_en/back.jpg',
+                    (700,100),
+                    1,
+                    selected=True
+                    )
+# card_list.add(card_current)
+
 
 keep_going=True        
 while keep_going:
@@ -76,15 +49,26 @@ while keep_going:
             #               random.random(),
             #               True
             #               )  
-            # sprite_list.add(sprite)
-            for s in sprite_list:
+            # card_list.add(sprite)
+            for s in card_list:
                 if s.rect.collidepoint(pos):
                     s.choose()
+                    card_current.image = s.image.copy()
+            if button_test.rect.collidepoint(pos): #点击button_test
+                for s in card_list:
+                    if s.selected:
+                        card_list.remove(s)
 
-    screen.fill(BLACK)        
-    sprite_list.update() # 调用list里每一个精灵的update()
-    sprite_list.draw(screen)
-    pygame.display.update()
+    screen.fill(BLACK) 
+    card_list.update() # 调用list里每一个精灵的update()
+    card_list.draw(screen)
+
+    button_test.draw_button()
+    card_current.blitme()
+
+    # card_current.update()
+
+    pygame.display.update() #flip()与update()有何区别--flip更新整个缓冲区，update可以更新局部rect
     timer.tick(60)
 
 pygame.quit()    
