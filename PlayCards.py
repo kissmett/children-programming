@@ -27,6 +27,7 @@ for i in range(10):
                 )  
     card_list.add(sprite)
 
+controll_list = pygame.sprite.Group()
 button_test = Button(screen, 'test',button_color=BLUE,text_color=RED,rect=Rect(0,0,100,50))
 card_current = Card(screen,
                     'assets_en/back.jpg',
@@ -34,7 +35,8 @@ card_current = Card(screen,
                     1,
                     selected=True
                     )
-# card_list.add(card_current)
+controll_list.add(button_test)
+controll_list.add(card_current)
 
 
 keep_going=True        
@@ -53,20 +55,25 @@ while keep_going:
             for s in card_list:
                 if s.rect.collidepoint(pos):
                     s.choose()
+                    button_test.set_msg('card clicked.',True)
                     card_current.setImage(s.filename)
             if button_test.rect.collidepoint(pos): #点击button_test
                 for s in card_list:
                     if s.selected:
                         card_list.remove(s)
-
+            if card_current.rect.collidepoint(pos):
+                card_current.choose()
+                button_test.set_msg('card_current clicked.',True)
     screen.fill(BLACK) 
     card_list.update() # 调用list里每一个精灵的update()
     card_list.draw(screen)
 
-    button_test.draw_button()
-    card_current.blitme()
+    controll_list.update()
+    controll_list.draw(screen)
 
-    # card_current.update()
+    # button_test.draw_button()
+    # card_current.blitme()
+    # # card_current.update() #Not
 
     pygame.display.update() #flip()与update()有何区别--flip更新整个缓冲区，update可以更新局部rect
     timer.tick(60)
