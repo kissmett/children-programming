@@ -1,5 +1,10 @@
+# -*- coding: utf-8 -*- 
 import pygame
-from .color import RED,BLACK,BLUE,GREEN
+if __name__ =='__main__':
+    from color import RED,BLACK,BLUE,GREEN
+else:
+    from .color import RED,BLACK,BLUE,GREEN
+# from .color import RED,BLACK,BLUE,GREEN
 
 class Card(pygame.sprite.Sprite): 
     # 属性image/rect不可少
@@ -10,7 +15,7 @@ class Card(pygame.sprite.Sprite):
         self.scale = scale
         self.selected = selected
 
-        self.setImage(self.filename)
+        self._setImage(self.filename)
         self.setPos(pos) #需要基于image scale来设置position，所以此行要放setImage后面；
         self._makeChooseFlag()
         self._setChooseFlag()
@@ -35,6 +40,11 @@ class Card(pygame.sprite.Sprite):
             self.image.blit(self.msg_image,self.msg_image_rect)
         pass
     def setImage(self,filename):
+        self._setImage(filename)
+        self._setChooseFlag()
+        pass
+    def _setImage(self,filename):
+        print('card.setImage()',self.filename,self.selected)
         self.image = pygame.image.load(filename)
         self.image = pygame.transform.scale(self.image,
                                             (self.image.get_rect().width*self.scale,
@@ -77,3 +87,5 @@ class Card(pygame.sprite.Sprite):
             # 在self.image上画圆和文字
             self._setChooseFlag()
 
+if __name__ == '__main__':
+    print('card.main.')
