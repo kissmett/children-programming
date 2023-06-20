@@ -5,8 +5,8 @@ import os
 from pygame import Rect
 
 from pygame_components.button import Button
-from pygame_components.card import Card
-from pygame_components.color import RED,BLACK,BLUE,GREEN
+from pygame_components import Card
+from pygame_components import RED,BLACK,BLUE,GREEN  
 
 from pygame_components.card2 import Card2
 
