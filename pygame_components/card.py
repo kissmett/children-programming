@@ -9,6 +9,7 @@ class Card(pygame.sprite.Sprite):
         self.filename = imagefile        
         self.scale = scale
         self.selected = selected
+        self.mousedown = False
 
         self.setImage(self.filename)
         self.setPos(pos) #需要基于image scale来设置position，所以此行要放setImage后面；
@@ -76,4 +77,17 @@ class Card(pygame.sprite.Sprite):
             self.selected = True
             # 在self.image上画圆和文字
             self._setChooseFlag()
-
+    
+    #支持拖动
+    def _check_events(self, event):        
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            pos = event.pos
+            if self.rect.collidepoint(pos):
+                self.mousedown = True
+        if event.type == pygame.MOUSEBUTTONUP:
+            self.mousedown = False
+        if event.type == pygame.MOUSEMOTION:
+            pos = event.pos
+            if self.mousedown:
+                self.setPos(pos)          
+        pass
