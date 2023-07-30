@@ -15,7 +15,7 @@ def draw():   #
     startNeedle.draw()    # 初始位置针的绘制
     for needle in needles:  # 绘制列表中每根针
         needle.draw()        # 绘制针
-    screen.draw.filled_circle((400, 300), 80, 'red')  # 绘制圆盘
+    screen.draw.filled_circle((400, 300), 80, 'blue')  # 绘制圆盘
     screen.draw.text(str(score), (50, 250),
                      fontsize=50, color='green')  # 显示游戏得分
     if rotateSpeed == 0:  # 游戏失败
@@ -46,4 +46,6 @@ def on_key_down():  # 当按下任意键盘键时执行
 
     needles.append(newNeedle)  # 把新针加入列表中
 
+# music.play_once('溜走')
+# music.play_once('弹簧')
 pgzrun.go()   # 开始执行游戏
