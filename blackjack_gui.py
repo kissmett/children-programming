@@ -74,8 +74,8 @@ class GameState:
     def __init__(self):
         self.deck = Deck()
         self.deck.shuffle()
-        self.player_hand = Hand()
-        self.dealer_hand = Hand(dealer=True)
+        self.player_hand = Hand() #玩家
+        self.dealer_hand = Hand(dealer=True) #发牌者
         for i in range(2):
             self.player_hand.add_card(self.deck.deal())
             self.dealer_hand.add_card(self.deck.deal())
@@ -115,7 +115,7 @@ class GameState:
 
     def player_is_over(self):
         return self.player_hand.get_value() > 21
-
+    #叫牌
     def hit(self):
         self.player_hand.add_card(self.deck.deal())
         if self.someone_has_blackjack() == 'p':
@@ -231,9 +231,11 @@ class GameScreen(tk.Tk):
         self.stick_button.pack_forget()
         self.play_again_button.pack(side=tk.LEFT, padx=(100, 200))
         self.quit_button.pack(side=tk.LEFT)
+    #发牌    
     def hit(self):
         self.game_state.hit()
         self.display_table()
+    #停牌    
     def stick(self):
         table_state = self.game_state.calculate_final_state()
         self.display_table(False, table_state)

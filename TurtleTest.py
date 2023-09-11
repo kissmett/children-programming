@@ -1,4 +1,7 @@
 import turtle
+def myprint(s):
+    print('i say:',s)
+    
 turtle.screensize(800,600, "green")
 # turtle.pensize(4)
 # turtle.pencolor("red")
@@ -8,4 +11,5 @@ t.pencolor("red")
 t.pensize(2)
 for r in range(5,10):
     t.circle(r*10)
+    myprint(r)
 
