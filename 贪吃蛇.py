@@ -11,7 +11,7 @@ pygame.display.set_caption('贪吃蛇小游戏')
 fpsclock = pygame.time.Clock()
 
 # 定义字体
-font = pygame.font.Font('C:/Windows/Fonts/ARLRDBD.TTF', 80)
+font = pygame.font.Font('C:/Windows/Fonts/msyh.ttc', 80)
 
 # 定义颜色
 red = pygame.Color(255, 0, 0)
