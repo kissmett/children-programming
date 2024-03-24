@@ -14,7 +14,8 @@ for i in range(0,count):
     a = random.randint(1,20) # 第一个数字（从1到20之间随机一整数）
     b = random.randint(1,20) # 第二个数字（从1到20之间随机一整数）
     op = random.choice(['+','-']) # 运算符（+或-）
-    quest = '%d %s %d = '%(a,op,b) # 题目形式 a _ b = 
+    quest = '%d %s %d = ' % (a,op,b) # 题目形式 a _ b = 
+    # quest = a + ' ' + op + ' '+ b + ' ='
     ans = 0 # 题目答案
     questions.append(quest) # 将题目加入到 题目列表
     # 计算题目答案
