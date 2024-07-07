@@ -1,12 +1,26 @@
 '''
 {'家具':[,,,],'食物':[]}
 key:分类
-value：具体的东西
+value:具体的东西
 '''
+import json
+
 
 family_things = {}
+def save():
+    content = json.dumps(family_things)
+    f = open('family-things.json','wt+')
+    f.write(content)
+    f.close()
+
+def load():
+    global family_things
+    f = open('family-things.json','+rt')
+    content = f.read()
+    family_things = json.loads(content)
+    f.close()
 while True:
-    cmd=input('请输入如下指令:\na:加入物品\nd:删除物品\nl:列出当前物品\nq:退出\n')
+    cmd=input('----------\n请输入如下指令:\na:加入物品\nd:删除物品\nl:列出当前物品\ns:保存\no:加载\nq:退出\n----------\n')
     if cmd == 'q':
         print('bye~')
         break
@@ -47,5 +61,37 @@ while True:
                 print('{0}不存在，本次操作无效'.format(classname))
             continue    
         continue
+    if cmd=='d':
+        print('当前物品有：'+ str(family_things))
+        删除类别=input('请选择一个要操作的分类：')
+        if 删除类别 not in(family_things.keys()):
+            print ('没有当前类别，此次操作无效')
+            continue
+        操作= int(input('您是要删除该分类（按1）还是该分类下的物品（按2）？'))
+        if 操作==1:
+            del family_things[删除类别]
+            print('已完成')
+            continue
+        # ------------------------------- #
+        删除物品=input('请选择一个要操作的物品：')
+        if 删除物品 not in family_things[删除类别]:
+            print ('该类别下没有当前物品，此次操作无效')
+            continue
+        family_things[删除类别].remove(删除物品)
+    if cmd=='s':
+        save()
+        print('保存成功')
+        continue
+    if cmd=='o':
+        load()
+        print('加载完成')
+        continue
+
             
+        
+
+        
+
+
+
 
