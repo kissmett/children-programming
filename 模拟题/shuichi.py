@@ -22,6 +22,9 @@
 来源
 《奥数典型题举一反三（小学六年级）》 (ISBN 978-7-5445-2883-2) 第二章 第二讲 习题15
 '''
+
+
+
 a,b,c,d = input().split()
 a = int(a)
 b = int(b)
@@ -29,24 +32,58 @@ c = int(c)
 d = int(d)
 s = 0 #当前水量
 i = 0 #耗时
+zq = 0
 while True:
-
-    if s + 1/a < 1: #不会在此1小时内溢出；
-        i += 1
-        s += 1/a
-    else:
-        i += (1-s)/(1/a)
+    #a 加水
+    if (s + 1/a)>=1:
+        t = (1-s)/(1/a)
+        i = i + t
+        # s = s + 1/a*t = 1
+        print('a',i)
         break
-    i += 1
-    s -= 1/b
-
-    if s + 1/c < 1: #不会在此1小时内溢出；
-        i += 1
-        s += 1/c
     else:
-        i += (1-s)/(1/c)
+        s = s + 1/a
+        i = i + 1
+
+    #b 减水
+    s = s - 1/b
+    i = i + 1
+    # 加水
+    if (s + 1/c)>=1:
+        t = (1-s)/(1/c)
+        i = i + t
+        # s = s + 1/a*t = 1
+        print('c',i)
         break
-    i += 1
-    s -= 1/d
+    else:
+        s = s + 1/c
+        i = i + 1
+
+    #d 减水
+    s = s - 1/d
+    i = i + 1
+    zq = zq + 1
+    print('----------',zq)
+
+
+# while True:
+
+#     if s + 1/a < 1: #不会在此1小时内溢出；
+#         i += 1
+#         s += 1/a
+#     else:
+#         i += (1-s)/(1/a)
+#         break
+#     i += 1
+#     s -= 1/b
+
+#     if s + 1/c < 1: #不会在此1小时内溢出；
+#         i += 1
+#         s += 1/c
+#     else:
+#         i += (1-s)/(1/c)
+#         break
+#     i += 1
+#     s -= 1/d
 
 print('%.2f'%i)

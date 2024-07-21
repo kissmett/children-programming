@@ -19,15 +19,34 @@ def load():
     content = f.read()
     family_things = json.loads(content)
     f.close()
+def sum_array(arr):
+    s = 0
+    for i in arr:
+        try:
+            i = int(i)
+        except:
+            i = 0
+        s = s + i
+    return s    
+def sum_all():
+    d = {}
+    for k in family_things.keys():
+        arr = family_things[k]
+        s = sum_array(arr)
+        d[k] = s
+    print('各分类的得分：',d)    
+
+    
+
 while True:
-    cmd=input('----------\n请输入如下指令:\na:加入物品\nd:删除物品\nl:列出当前物品\ns:保存\no:加载\nq:退出\n----------\n')
+    cmd=input('----------\n请输入如下指令:\na:加入物品\nd:删除物品\nl:列出当前物品\nh:求和\ns:保存\no:加载\nq:退出\n----------\n')
     if cmd == 'q':
         print('bye~')
         break
     if cmd == 'l':
         print('当前物品有：'+ str(family_things))
         continue
-    if cmd=='a':
+    if cmd=='a.v1':
         #列出现有分类
         #问询用户是否添加新分类 y/n
             #若是y则提示用户输入分类名字
@@ -61,6 +80,25 @@ while True:
                 print('{0}不存在，本次操作无效'.format(classname))
             continue    
         continue
+    if cmd=='a':
+        print('现有分类：'+ str(list(family_things.keys())))
+        classname = input('输入分类名字：')
+        classname = classname.strip()
+        if classname == '':
+            print('分类名称不能为空')
+            continue
+        if classname not in family_things.keys():
+            family_things[classname] = []
+            print('[{0}]新类别已添加'.format(classname))
+        else:
+            print('[{0}]已存在，已切换至该分类'.format(classname))
+        thing = input('输入具体物品：') 
+        thing = thing.strip() #去掉首尾空格
+        if thing == '':
+            print('输入物品名称不能为空，本次添加无效')
+            continue        
+        family_things[classname].append(thing)            
+        print('物品添加成功')           
     if cmd=='d':
         print('当前物品有：'+ str(family_things))
         删除类别=input('请选择一个要操作的分类：')
@@ -86,12 +124,8 @@ while True:
         load()
         print('加载完成')
         continue
-
+    if cmd=='h':
+        sum_all()
+        continue
             
-        
-
-        
-
-
-
 
