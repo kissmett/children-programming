@@ -51,4 +51,4 @@ else:
     pingjia = "不及格"    
 
 # 输出结果
-outputscreen.yellow("成绩：共%d题，答对%d题，得分：%d，评价：%s。"%(count,correctCount,score,pingjia))    
+outputscreen.yellow("成绩：共%d题，答对%d题，得分：%d，评价：%s。"%(count,correctCount,score,pingjia))    1
